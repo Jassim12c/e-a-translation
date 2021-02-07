@@ -31,3 +31,11 @@ letters_numbers = {
     '9`': 'ض'
 }
 
+sentence = input("> ")
+
+for key, value in letters_numbers.items():
+    for letter in sentence:
+        if letter == key:
+            x = sentence.replace(letter, value)
+            sentence = x
+            print(sentence)
