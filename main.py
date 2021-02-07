@@ -1,3 +1,5 @@
+import arabic_reshaper
+
 letters_numbers = {
     'w': 'و',
     'e': 'ي',
@@ -15,6 +17,7 @@ letters_numbers = {
     'k': 'ك',
     'l': 'ل',
     'z': 'ز',
+    'j': 'ج',
     'b': 'ب',
     'n': 'ن',
     'm': 'م',
@@ -38,4 +41,9 @@ for key, value in letters_numbers.items():
         if letter == key:
             x = sentence.replace(letter, value)
             sentence = x
-print(sentence)
+
+# reshapes arabic letters to make them linked
+reshaped_text = arabic_reshaper.reshape(sentence)
+# reverses the sentences to 'right to left'
+rev_text = reshaped_text[::-1]
+print(rev_text)
