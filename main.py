@@ -38,4 +38,4 @@ for key, value in letters_numbers.items():
         if letter == key:
             x = sentence.replace(letter, value)
             sentence = x
-            print(sentence)
+print(sentence)
