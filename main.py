@@ -1,4 +1,5 @@
 import arabic_reshaper
+import re
 
 letters_numbers = {
     'w': 'و',
@@ -12,7 +13,7 @@ letters_numbers = {
     's': 'س',
     'd': 'د',
     'f': 'ف',
-    'g': 'ج',
+    'g': 'ق',
     'h': 'ه',
     'k': 'ك',
     'l': 'ل',
@@ -34,7 +35,26 @@ letters_numbers = {
     '9`': 'ض'
 }
 
+digraphs = {
+    'sh': 'ش',
+    'th': 'ذ',
+    'ch': 'ج',
+}
+
+
+def change_digraphs(arg1):
+
+    find_letter = re.compile(r'{}'.format(arg1))
+    two_letters = find_letter.search(sentence)
+    grouped_letters = str(two_letters.group())
+
+    for keys, values in digraphs.items():
+        if keys == grouped_letters:
+            final_sen = sentence.replace(grouped_letters, digraphs[keys])
+            return final_sen
+
 sentence = input("> ")
+
 
 for key, value in letters_numbers.items():
     for letter in sentence:
@@ -42,8 +62,11 @@ for key, value in letters_numbers.items():
             x = sentence.replace(letter, value)
             sentence = x
 
+
 # reshapes arabic letters to make them linked
 reshaped_text = arabic_reshaper.reshape(sentence)
 # reverses the sentences to 'right to left'
 rev_text = reshaped_text[::-1]
 print(rev_text)
+
+print(tuple(digraphs.items())[0][0])
