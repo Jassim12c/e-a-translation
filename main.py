@@ -43,7 +43,7 @@ digraphs = {
 }
 
 
-def change_digraphs(sen):
+def switch_letters(sen):
     for key in digraphs.keys():
         find_letter = re.compile(r'{}'.format(key))
         two_letters = find_letter.findall(sen)
@@ -68,4 +68,4 @@ def change_digraphs(sen):
 
 sentence = input("> ")
 
-print(change_digraphs(sentence))
+print(switch_letters(sentence))
