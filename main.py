@@ -16,6 +16,7 @@ letters_numbers = {
     'g': 'ق',
     'h': 'ه',
     'k': 'ك',
+    'c': 'ك',
     'l': 'ل',
     'z': 'ز',
     'j': 'ج',
@@ -24,11 +25,9 @@ letters_numbers = {
     'm': 'م',
     '2': 'ئ',
     '3': 'ع',
-    '3`': 'غ',
     '4': 'ذ',
     '5': 'خ',
     '6': 'ط',
-    '6`': 'ظ',
     '7': 'ح',
     '8': 'ق',
     '9': 'ص',
@@ -39,34 +38,34 @@ digraphs = {
     'sh': 'ش',
     'th': 'ذ',
     'ch': 'ج',
+    '6`': 'ظ',
+    '3`': 'غ',
 }
 
 
-def change_digraphs(arg1):
+def change_digraphs(sen):
+    for key in digraphs.keys():
+        find_letter = re.compile(r'{}'.format(key))
+        two_letters = find_letter.findall(sen)
+        grouped_letters = two_letters
 
-    find_letter = re.compile(r'{}'.format(arg1))
-    two_letters = find_letter.search(sentence)
-    grouped_letters = str(two_letters.group())
+        for keys, values in digraphs.items():
+            for di in grouped_letters:
+                if keys == di:
+                    sen = sen.replace(di, digraphs[keys])
 
-    for keys, values in digraphs.items():
-        if keys == grouped_letters:
-            final_sen = sentence.replace(grouped_letters, digraphs[keys])
-            return final_sen
+    for key, value in letters_numbers.items():
+        for letter in sen:
+            if letter == key:
+                x = sen.replace(letter, value)
+                sen = x
+    # reshapes arabic letters to make them linked
+    reshaped_text = arabic_reshaper.reshape(sen)
+    # reverses the sentences to 'right to left'
+    rev_text = reshaped_text[::-1]
+    return rev_text
+
 
 sentence = input("> ")
 
-
-for key, value in letters_numbers.items():
-    for letter in sentence:
-        if letter == key:
-            x = sentence.replace(letter, value)
-            sentence = x
-
-
-# reshapes arabic letters to make them linked
-reshaped_text = arabic_reshaper.reshape(sentence)
-# reverses the sentences to 'right to left'
-rev_text = reshaped_text[::-1]
-print(rev_text)
-
-print(tuple(digraphs.items())[0][0])
+print(change_digraphs(sentence))
